@@ -55,3 +55,6 @@ if __name__ == "__main__":
         # Ana branch'e dön ve güncelle
         os.system(f"git checkout {main_branch}")
         os.system(f"git pull {remote_name} {main_branch}")
+        
+        # Döngüler arası 60 saniye bekleme
+        time.sleep(60)

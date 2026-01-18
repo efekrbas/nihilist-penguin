@@ -17,7 +17,7 @@ if __name__ == "__main__":
     co_author = "Visage33 <255624937+Visage33@users.noreply.github.com>" 
     
     # Döngü Sayısı
-    for i in range(30):
+    for i in range(50):
         # Windows için cls, Mac/Linux için clear kullanılır
         os.system("cls" if os.name == 'nt' else "clear") 
         

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description"
-        content="Nihilist Penguin - Sonsuz yürüyüş oyunu. Werner Herzog'un ünlü depressed penguin karakteri.">
+        content="Nihilist Penguin - An endless walking game. Inspired by Werner Herzog's famous depressed penguin.">
     <meta name="theme-color" content="#0a0a1a">
     <title>Nihilist Penguin 🐧</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
 
 <body>
     <div id="game-container">
-        <!-- İsim Giriş Ekranı -->
+        <!-- Name Entry Screen -->
         <div id="name-screen" class="screen active">
             <div class="stars"></div>
             <div class="menu-content">
@@ -24,20 +24,21 @@
                     <h1 class="game-title">NIHILIST<br>PENGUIN</h1>
                     <div class="penguin-preview">🐧</div>
                 </div>
-                <p class="tagline">"Hiçbir şeyin anlamı yok... ama yine de yürüyoruz."</p>
+                <p class="tagline" data-i18n="tagline">"Nothing has meaning... but we keep walking anyway."</p>
                 <div class="name-input-container">
-                    <label for="player-name" class="input-label">Adını gir, yolcu...</label>
-                    <input type="text" id="player-name" class="name-input" placeholder="Penguen Adı" maxlength="15"
-                        autocomplete="off">
+                    <label for="player-name" class="input-label" data-i18n="enterName">Enter your name,
+                        traveler...</label>
+                    <input type="text" id="player-name" class="name-input" placeholder="Penguin Name"
+                        data-i18n-placeholder="penguinName" maxlength="15" autocomplete="off">
                 </div>
                 <button id="enter-btn" class="game-btn pulse">
-                    <span>GİRİŞ</span>
+                    <span data-i18n="enter">ENTER</span>
                 </button>
             </div>
             <div class="snow-overlay"></div>
         </div>
 
-        <!-- Ana Menü -->
+        <!-- Main Menu -->
         <div id="menu-screen" class="screen">
             <div class="stars"></div>
             <div class="menu-content">
@@ -45,47 +46,80 @@
                     <h1 class="game-title">NIHILIST<br>PENGUIN</h1>
                     <div class="penguin-preview">🐧</div>
                 </div>
-                <p class="welcome-text">Hoş geldin, <span id="player-display"></span></p>
+                <p class="welcome-text"><span data-i18n="welcome">Welcome,</span> <span id="player-display"></span></p>
                 <button id="start-btn" class="game-btn pulse">
-                    <span>BAŞLA</span>
+                    <span data-i18n="start">START</span>
                 </button>
                 <button id="leaderboard-btn" class="game-btn secondary">
-                    <span>🏆 SKOR TABLOSU</span>
+                    <span data-i18n="leaderboard">🏆 LEADERBOARD</span>
                 </button>
                 <div class="instructions">
-                    <p>📱 Mobil: Ekrana dokun</p>
-                    <p>💻 Masaüstü: Space veya ↑</p>
+                    <p data-i18n="mobileInstr">📱 Mobile: Tap the screen</p>
+                    <p data-i18n="desktopInstr">💻 Desktop: Space or ↑</p>
                 </div>
             </div>
+            <!-- Settings Button -->
+            <button id="settings-btn" class="settings-btn" title="Settings">
+                ⚙️
+            </button>
             <div class="snow-overlay"></div>
         </div>
 
-        <!-- Skor Tablosu -->
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 data-i18n="settings">⚙️ Settings</h2>
+                    <button id="settings-close" class="modal-close">✕</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Language Setting -->
+                    <div class="setting-row">
+                        <span class="setting-label" data-i18n="language">Language</span>
+                        <div class="language-toggle">
+                            <button id="lang-en" class="lang-btn active">EN</button>
+                            <button id="lang-tr" class="lang-btn">TR</button>
+                        </div>
+                    </div>
+
+                    <!-- Music Setting -->
+                    <div class="setting-row">
+                        <span class="setting-label" data-i18n="music">Music</span>
+                        <select id="music-select" class="music-select">
+                            <option value="" data-i18n="noMusic">-- No Music --</option>
+                            <option value="music/Sadece Sevilmek İstedim.mp3">Sadece Sevilmek İstedim</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
         <div id="leaderboard-screen" class="screen">
             <div class="leaderboard-content">
-                <h2 class="leaderboard-title">🏆 SKOR TABLOSU</h2>
+                <h2 class="leaderboard-title" data-i18n="leaderboardTitle">🏆 LEADERBOARD</h2>
                 <div id="leaderboard-list" class="leaderboard-list">
-                    <!-- Skorlar buraya gelecek -->
+                    <!-- Scores will be here -->
                 </div>
                 <button id="leaderboard-back-btn" class="game-btn secondary">
-                    <span>← GERİ</span>
+                    <span data-i18n="back">← BACK</span>
                 </button>
             </div>
         </div>
 
-        <!-- Oyun Ekranı -->
+        <!-- Game Screen -->
         <div id="game-screen" class="screen">
             <div id="game-ui">
                 <div class="ui-row">
                     <div class="score-display">
-                        <span class="label">MESAFE</span>
+                        <span class="label" data-i18n="distance">DISTANCE</span>
                         <span id="distance" class="value">0m</span>
                     </div>
                     <div class="player-display-game">
                         <span id="player-name-game" class="player-name-text"></span>
                     </div>
                     <div class="high-score-display">
-                        <span class="label">EN İYİ</span>
+                        <span class="label" data-i18n="best">BEST</span>
                         <span id="high-score" class="value">0m</span>
                     </div>
                 </div>
@@ -94,26 +128,26 @@
             <canvas id="game-canvas"></canvas>
         </div>
 
-        <!-- Game Over Ekranı -->
+        <!-- Game Over Screen -->
         <div id="gameover-screen" class="screen">
             <div class="gameover-content">
-                <h2 class="gameover-title">YOLCULUK BİTTİ</h2>
+                <h2 class="gameover-title" data-i18n="journeyEnd">JOURNEY ENDED</h2>
                 <div class="final-stats">
                     <div class="stat">
-                        <span class="stat-label">Bu sefer</span>
+                        <span class="stat-label" data-i18n="thisTime">This time</span>
                         <span id="final-distance" class="stat-value">0m</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-label">En uzak</span>
+                        <span class="stat-label" data-i18n="farthest">Farthest</span>
                         <span id="final-high-score" class="stat-value">0m</span>
                     </div>
                 </div>
                 <p id="final-quote" class="final-quote"></p>
                 <button id="restart-btn" class="game-btn">
-                    <span>TEKRAR DENE</span>
+                    <span data-i18n="tryAgain">TRY AGAIN</span>
                 </button>
                 <button id="menu-btn" class="game-btn secondary">
-                    <span>ANA MENÜ</span>
+                    <span data-i18n="mainMenu">MAIN MENU</span>
                 </button>
             </div>
         </div>

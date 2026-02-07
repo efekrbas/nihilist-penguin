@@ -1,88 +1,100 @@
 # 🐧 Nihilist Penguin
 
-Werner Herzog'un "Encounters at the End of the World" belgeselindeki viral "Depressed Penguin" karakterinden esinlenen, mobil öncelikli endless runner web oyunu.
+An endless runner web game inspired by the viral "Depressed Penguin" from Werner Herzog's documentary "Encounters at the End of the World".
 
-[![Play Now](https://img.shields.io/badge/🎮_Oyna-GitHub_Pages-blueviolet?style=for-the-badge)](https://efekrbas.github.io/nihilist-penguin/)
+[![Play Now](https://img.shields.io/badge/🎮_Play-GitHub_Pages-blueviolet?style=for-the-badge)](https://efekrbas.github.io/nihilist-penguin/)
 [![Platform](https://img.shields.io/badge/Platform-Web-blue)](https://efekrbas.github.io/nihilist-penguin/)
 [![Mobile](https://img.shields.io/badge/Mobile-Responsive-green)](https://efekrbas.github.io/nihilist-penguin/)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ## 🌐 Demo
 
-**[👉 Oyunu Oyna: https://efekrbas.github.io/nihilist-penguin/](https://efekrbas.github.io/nihilist-penguin/)**
+**[👉 Play Now: https://efekrbas.github.io/nihilist-penguin/](https://efekrbas.github.io/nihilist-penguin/)**
 
-## 🎮 Oyun Hakkında
+## 🎮 About
 
-Penguen, kolonisinden ayrılıp Antarktika'nın derinliklerine doğru sonsuz bir yolculuğa çıkar. Engelleri aş, nihilistik düşünceler eşliğinde mümkün olduğunca uzağa git.
+The penguin leaves its colony and embarks on an endless journey into the depths of Antarctica. Overcome obstacles and travel as far as possible, accompanied by nihilistic thoughts.
 
-### Özellikler
+### Features
 
-- 🎯 Sonsuz koşu mekaniği
-- ❄️ Buz parçaları ve çukur engelleri
-- 💬 Türkçe nihilistik alıntılar
-- 🏆 **Global skor tablosu** (Firebase Realtime Database)
-- 🌍 Tüm oyuncularla gerçek zamanlı rekabet
-- 📱 Mobil ve masaüstü uyumlu
-- 🎨 Canvas tabanlı animasyonlar
+- 🎯 Endless runner mechanics
+- ❄️ Ice blocks and pit obstacles
+- 🌍 **Multilingual support** (English & Turkish)
+- 🎵 **Background music** with auto-play
+- 💬 Nihilistic quotes in EN/TR
+- 🏆 **Global leaderboard** (Firebase Realtime Database)
+- ⚙️ **Settings menu** with language & music options
+- 📱 Mobile and desktop responsive
+- 🎨 Canvas-based animations
 
-## 🕹️ Kontroller
+## 🕹️ Controls
 
-| Platform | Aksiyon |
-|----------|---------|
-| 💻 Masaüstü | `Space` veya `↑` tuşu |
-| 📱 Mobil | Ekrana dokun |
+| Platform | Action |
+|----------|--------|
+| 💻 Desktop | `Space` or `↑` key |
+| 📱 Mobile | Tap the screen |
 
-## 🚀 Kurulum
+## ⚙️ Settings
+
+Click the **⚙️** button in the bottom-right corner of the main menu:
+- **Language**: Switch between English (EN) and Turkish (TR)
+- **Music**: Select background music (auto-plays when game starts, stops when penguin dies)
+
+## 🚀 Installation
 
 ```bash
-# Repoyu klonla
+# Clone the repo
 git clone https://github.com/efekrbas/nihilist-penguin.git
 
-# Klasöre gir
+# Enter folder
 cd nihilist-penguin
 
-# Tarayıcıda aç
+# Open in browser
 start index.html   # Windows
 open index.html    # macOS
 xdg-open index.html # Linux
 ```
 
-Veya sadece `index.html` dosyasını tarayıcıda aç.
+Or just open `index.html` in your browser.
 
-## 📁 Proje Yapısı
+## 📁 Project Structure
 
 ```
 nihilist-penguin/
-├── index.html    # Ana HTML dosyası
-├── styles.css    # Stiller ve animasyonlar
-├── game.js       # Oyun motoru ve mantık
-├── quotes.js     # Nihilistik alıntılar
-├── LICENSE       # MIT Lisansı
-└── README.md     # Bu dosya
+├── index.html        # Main HTML file
+├── styles.css        # Styles and animations
+├── game.js           # Game engine and logic
+├── quotes.js         # Nihilistic quotes (EN/TR)
+├── firebase-config.js # Firebase configuration
+├── music/            # Background music files
+│   └── Sadece Sevilmek İstedim.mp3
+├── LICENSE           # MIT License
+└── README.md         # This file
 ```
 
-## 🎨 Teknolojiler
+## 🎨 Technologies
 
-- **HTML5 Canvas** - Oyun render
-- **Vanilla JavaScript** - Oyun mantığı
-- **CSS3** - Animasyonlar ve responsive tasarım
-- **localStorage** - Veri saklama
+- **HTML5 Canvas** - Game rendering
+- **Vanilla JavaScript** - Game logic
+- **CSS3** - Animations and responsive design
+- **Firebase** - Realtime leaderboard
+- **localStorage** - Data storage
 
-## 📜 Lisans
+## 📜 License
 
-Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır.
+This project is licensed under the [MIT License](LICENSE).
 
-## ⚠️ Uyarı
+## ⚠️ Disclaimer
 
-> Bu proje eğitim ve eğlence amaçlıdır. "Nihilist Penguin" konsepti Werner Herzog'un belgeselinden esinlenmiştir. Ticari kullanım için orijinal içerik oluşturmanız önerilir.
+> This project is for educational and entertainment purposes. The "Nihilist Penguin" concept is inspired by Werner Herzog's documentary. For commercial use, creating original content is recommended.
 
-## 🤝 Katkıda Bulunma
+## 🤝 Contributing
 
-1. Fork'la
-2. Feature branch oluştur (`git checkout -b feature/amazing-feature`)
-3. Commit'le (`git commit -m 'feat: add amazing feature'`)
-4. Push'la (`git push origin feature/amazing-feature`)
-5. Pull Request aç
+1. Fork it
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit (`git commit -m 'feat: add amazing feature'`)
+4. Push (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 

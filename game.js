@@ -1,6 +1,6 @@
-// ===== Nihilist Penguin - Ana Oyun Motoru =====
+// ===== Nihilist Penguin - Main Game Engine =====
 
-// DOM Elementleri
+// DOM Elements
 const nameScreen = document.getElementById('name-screen');
 const menuScreen = document.getElementById('menu-screen');
 const gameScreen = document.getElementById('game-screen');
@@ -9,7 +9,7 @@ const leaderboardScreen = document.getElementById('leaderboard-screen');
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 
-// UI Elementleri
+// UI Elements
 const playerNameInput = document.getElementById('player-name');
 const playerDisplay = document.getElementById('player-display');
 const playerNameGame = document.getElementById('player-name-game');
@@ -21,7 +21,7 @@ const finalHighScore = document.getElementById('final-high-score');
 const finalQuote = document.getElementById('final-quote');
 const leaderboardList = document.getElementById('leaderboard-list');
 
-// Butonlar
+// Buttons
 const enterBtn = document.getElementById('enter-btn');
 const startBtn = document.getElementById('start-btn');
 const restartBtn = document.getElementById('restart-btn');
@@ -29,8 +29,155 @@ const menuBtn = document.getElementById('menu-btn');
 const leaderboardBtn = document.getElementById('leaderboard-btn');
 const leaderboardBackBtn = document.getElementById('leaderboard-back-btn');
 
-// ===== Oyuncu Bilgileri =====
+// Settings Elements
+const settingsBtn = document.getElementById('settings-btn');
+const settingsModal = document.getElementById('settings-modal');
+const settingsClose = document.getElementById('settings-close');
+const langEnBtn = document.getElementById('lang-en');
+const langTrBtn = document.getElementById('lang-tr');
+const musicSelect = document.getElementById('music-select');
+
+// ===== Language System =====
+let currentLanguage = localStorage.getItem('nihilistPenguinLang') || 'en';
+
+const TRANSLATIONS = {
+    en: {
+        tagline: '"Nothing has meaning... but we keep walking anyway."',
+        enterName: 'Enter your name, traveler...',
+        penguinName: 'Penguin Name',
+        enter: 'ENTER',
+        welcome: 'Welcome,',
+        start: 'START',
+        leaderboard: '🏆 LEADERBOARD',
+        mobileInstr: '📱 Mobile: Tap the screen',
+        desktopInstr: '💻 Desktop: Space or ↑',
+        settings: '⚙️ Settings',
+        language: 'Language',
+        music: 'Music',
+        noMusic: '-- No Music --',
+        play: '▶ Play',
+        stop: '⏹ Stop',
+        leaderboardTitle: '🏆 LEADERBOARD',
+        back: '← BACK',
+        distance: 'DISTANCE',
+        best: 'BEST',
+        journeyEnd: 'JOURNEY ENDED',
+        thisTime: 'This time',
+        farthest: 'Farthest',
+        tryAgain: 'TRY AGAIN',
+        mainMenu: 'MAIN MENU',
+        leaderboardEmpty: 'No scores yet... Be the first!'
+    },
+    tr: {
+        tagline: '"Hiçbir şeyin anlamı yok... ama yine de yürüyoruz."',
+        enterName: 'Adını gir, yolcu...',
+        penguinName: 'Penguen Adı',
+        enter: 'GİRİŞ',
+        welcome: 'Hoş geldin,',
+        start: 'BAŞLA',
+        leaderboard: '🏆 SKOR TABLOSU',
+        mobileInstr: '📱 Mobil: Ekrana dokun',
+        desktopInstr: '💻 Masaüstü: Space veya ↑',
+        settings: '⚙️ Ayarlar',
+        language: 'Dil',
+        music: 'Müzik',
+        noMusic: '-- Müzik Yok --',
+        play: '▶ Oynat',
+        stop: '⏹ Durdur',
+        leaderboardTitle: '🏆 SKOR TABLOSU',
+        back: '← GERİ',
+        distance: 'MESAFE',
+        best: 'EN İYİ',
+        journeyEnd: 'YOLCULUK BİTTİ',
+        thisTime: 'Bu sefer',
+        farthest: 'En uzak',
+        tryAgain: 'TEKRAR DENE',
+        mainMenu: 'ANA MENÜ',
+        leaderboardEmpty: 'Henüz skor yok... İlk sen ol!'
+    }
+};
+
+function setLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('nihilistPenguinLang', lang);
+
+    // Update quotes language
+    if (typeof setQuoteLanguage === 'function') {
+        setQuoteLanguage(lang);
+    }
+
+    // Update language buttons
+    langEnBtn.classList.toggle('active', lang === 'en');
+    langTrBtn.classList.toggle('active', lang === 'tr');
+
+    // Update all translatable elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (TRANSLATIONS[lang][key]) {
+            el.textContent = TRANSLATIONS[lang][key];
+        }
+    });
+
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (TRANSLATIONS[lang][key]) {
+            el.placeholder = TRANSLATIONS[lang][key];
+        }
+    });
+}
+
+// ===== Music System =====
+let bgMusic = new Audio();
+bgMusic.loop = true;
+bgMusic.volume = 0.5;
+
+// Load saved music selection
+const savedMusic = localStorage.getItem('nihilistPenguinMusic') || '';
+musicSelect.value = savedMusic;
+
+// Save music selection when changed
+musicSelect.addEventListener('change', () => {
+    localStorage.setItem('nihilistPenguinMusic', musicSelect.value);
+});
+
+function playMusic() {
+    const selectedMusic = musicSelect.value;
+    if (selectedMusic) {
+        bgMusic.src = selectedMusic;
+        bgMusic.play().catch(err => console.log('Music play error:', err));
+    }
+}
+
+function stopMusic() {
+    bgMusic.pause();
+    bgMusic.currentTime = 0;
+}
+
+// ===== Settings Modal =====
+function openSettings() {
+    settingsModal.classList.add('active');
+}
+
+function closeSettings() {
+    settingsModal.classList.remove('active');
+}
+
+// Settings Event Listeners
+settingsBtn.addEventListener('click', openSettings);
+settingsClose.addEventListener('click', closeSettings);
+settingsModal.addEventListener('click', (e) => {
+    if (e.target === settingsModal) {
+        closeSettings();
+    }
+});
+
+langEnBtn.addEventListener('click', () => setLanguage('en'));
+langTrBtn.addEventListener('click', () => setLanguage('tr'));
+
+// ===== Player Info =====
 let playerName = localStorage.getItem('nihilistPenguinPlayerName') || '';
+
 
 // ===== Skor Tablosu (Firebase) =====
 let leaderboardData = [];
@@ -109,7 +256,7 @@ function renderLeaderboard() {
     const leaderboard = getLeaderboard();
 
     if (leaderboard.length === 0) {
-        leaderboardList.innerHTML = '<p class="leaderboard-empty">Henüz skor yok... İlk sen ol!</p>';
+        leaderboardList.innerHTML = `<p class="leaderboard-empty">${TRANSLATIONS[currentLanguage].leaderboardEmpty}</p>`;
         return;
     }
 
@@ -300,6 +447,9 @@ function startGame() {
     highScoreDisplay.textContent = gameState.highScore + 'm';
     quoteDisplay.classList.remove('visible');
 
+    // Play selected music when game starts
+    playMusic();
+
     requestAnimationFrame(gameLoop);
 }
 
@@ -397,10 +547,13 @@ function checkCollision() {
     return false;
 }
 
-// ===== Oyun Sonu =====
+// ===== Game Over =====
 function gameOver() {
     gameState.isRunning = false;
     createCrashParticles();
+
+    // Stop background music when penguin dies
+    stopMusic();
 
     const finalScore = Math.floor(gameState.distance);
 
@@ -795,7 +948,7 @@ canvas.addEventListener('click', () => {
     }
 });
 
-// Buton olayları
+// Button events
 enterBtn.addEventListener('click', enterGame);
 startBtn.addEventListener('click', startGame);
 restartBtn.addEventListener('click', startGame);
@@ -803,11 +956,14 @@ leaderboardBtn.addEventListener('click', showLeaderboard);
 leaderboardBackBtn.addEventListener('click', showMenu);
 menuBtn.addEventListener('click', showMenu);
 
-// ===== Başlangıç =====
+// ===== Initialization =====
 resizeCanvas();
 highScoreDisplay.textContent = gameState.highScore + 'm';
 
-// Eğer daha önce isim girilmişse direkt menüye git
+// Apply saved language on load
+setLanguage(currentLanguage);
+
+// If name was entered before, go directly to menu
 if (playerName) {
     playerNameInput.value = playerName;
     showMenu();

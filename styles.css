@@ -601,3 +601,238 @@ body {
         max-height: 300px;
     }
 }
+
+/* ===== Settings Button ===== */
+.settings-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-blue);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-btn:hover {
+    background: rgba(74, 158, 255, 0.2);
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 0 20px rgba(74, 158, 255, 0.5);
+}
+
+/* ===== Settings Modal ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, rgba(26, 26, 58, 0.95) 0%, rgba(10, 10, 26, 0.98) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(74, 158, 255, 0.3);
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(74, 158, 255, 0.2);
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h2 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(0.8rem, 3vw, 1rem);
+    color: var(--accent-blue);
+    margin: 0;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: rgba(236, 72, 153, 0.2);
+    color: var(--accent-pink);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.setting-row:last-child {
+    border-bottom: none;
+}
+
+.setting-row.music-controls {
+    justify-content: center;
+    gap: 15px;
+}
+
+.setting-label {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    color: var(--text-primary);
+}
+
+/* Language Toggle */
+.language-toggle {
+    display: flex;
+    gap: 5px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px;
+    border-radius: 8px;
+}
+
+.lang-btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    color: var(--text-primary);
+}
+
+.lang-btn.active {
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+    color: white;
+    box-shadow: 0 2px 10px rgba(74, 158, 255, 0.4);
+}
+
+/* Music Select */
+.music-select {
+    font-family: 'VT323', monospace;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    padding: 8px 12px;
+    border: 1px solid var(--accent-blue);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--text-primary);
+    cursor: pointer;
+    max-width: 180px;
+    outline: none;
+}
+
+.music-select:focus {
+    box-shadow: 0 0 10px rgba(74, 158, 255, 0.4);
+}
+
+.music-select option {
+    background: #1a1a3a;
+    color: var(--text-primary);
+}
+
+/* Music Buttons */
+.music-btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    padding: 10px 20px;
+    border: 2px solid var(--accent-blue);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--accent-blue);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    background: rgba(74, 158, 255, 0.2);
+    box-shadow: 0 0 15px rgba(74, 158, 255, 0.3);
+}
+
+.music-btn:active {
+    transform: scale(0.95);
+}
+
+#music-play {
+    border-color: #22c55e;
+    color: #22c55e;
+}
+
+#music-play:hover {
+    background: rgba(34, 197, 94, 0.2);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+}
+
+#music-stop {
+    border-color: var(--accent-pink);
+    color: var(--accent-pink);
+}
+
+#music-stop:hover {
+    background: rgba(236, 72, 153, 0.2);
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
+}
+
+/* Settings Responsive */
+@media (max-width: 380px) {
+    .modal-content {
+        width: 95%;
+    }
+    
+    .setting-row {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .setting-row.music-controls {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .music-select {
+        max-width: 100%;
+        width: 100%;
+    }
+}

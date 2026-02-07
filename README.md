@@ -20,8 +20,8 @@ Penguen, kolonisinden ayrılıp Antarktika'nın derinliklerine doğru sonsuz bir
 - 🎯 Sonsuz koşu mekaniği
 - ❄️ Buz parçaları ve çukur engelleri
 - 💬 Türkçe nihilistik alıntılar
-- 🏆 Skor tablosu (Top 10)
-- 💾 localStorage ile kalıcı kayıt
+- 🏆 **Global skor tablosu** (Firebase Realtime Database)
+- 🌍 Tüm oyuncularla gerçek zamanlı rekabet
 - 📱 Mobil ve masaüstü uyumlu
 - 🎨 Canvas tabanlı animasyonlar
 

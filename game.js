@@ -32,34 +32,76 @@ const leaderboardBackBtn = document.getElementById('leaderboard-back-btn');
 // ===== Oyuncu Bilgileri =====
 let playerName = localStorage.getItem('nihilistPenguinPlayerName') || '';
 
-// ===== Skor Tablosu =====
-function getLeaderboard() {
-    const data = localStorage.getItem('nihilistPenguinLeaderboard');
-    return data ? JSON.parse(data) : [];
+// ===== Skor Tablosu (Firebase) =====
+let leaderboardData = [];
+
+// Firebase'den leaderboard'u dinle (realtime)
+function initLeaderboardListener() {
+    leaderboardRef.orderByChild('score').limitToLast(10).on('value', (snapshot) => {
+        leaderboardData = [];
+        snapshot.forEach((child) => {
+            leaderboardData.push({
+                key: child.key,
+                ...child.val()
+            });
+        });
+        // Skora göre sırala (yüksekten düşüğe)
+        leaderboardData.sort((a, b) => b.score - a.score);
+
+        // Eğer leaderboard ekranı açıksa güncelle
+        if (leaderboardScreen.classList.contains('active')) {
+            renderLeaderboard();
+        }
+    });
 }
 
-function saveToLeaderboard(name, score) {
-    let leaderboard = getLeaderboard();
+function getLeaderboard() {
+    return leaderboardData;
+}
 
-    // Aynı oyuncunun en iyi skoru mu kontrol et
+async function saveToLeaderboard(name, score) {
+    try {
+        // Aynı oyuncuyu bul
+        const snapshot = await leaderboardRef.orderByChild('name').equalTo(name).once('value');
+
+        if (snapshot.exists()) {
+            // Mevcut oyuncunun skorunu güncelle (sadece daha yüksekse)
+            snapshot.forEach((child) => {
+                const existingScore = child.val().score;
+                if (score > existingScore) {
+                    leaderboardRef.child(child.key).update({ score: score });
+                }
+            });
+        } else {
+            // Yeni oyuncu ekle
+            leaderboardRef.push({
+                name: name,
+                score: score,
+                timestamp: Date.now()
+            });
+        }
+    } catch (error) {
+        console.error('Firebase kaydetme hatası:', error);
+        // Fallback: localStorage'a kaydet
+        saveToLocalStorage(name, score);
+    }
+}
+
+// Fallback fonksiyonu (Firebase çalışmazsa)
+function saveToLocalStorage(name, score) {
+    let leaderboard = JSON.parse(localStorage.getItem('nihilistPenguinLeaderboard') || '[]');
     const existingPlayer = leaderboard.find(entry => entry.name === name);
 
     if (existingPlayer) {
-        // Sadece daha yüksek skor varsa güncelle
         if (score > existingPlayer.score) {
             existingPlayer.score = score;
         }
     } else {
-        // Yeni oyuncu ekle
         leaderboard.push({ name, score });
     }
 
-    // Skora göre sırala (yüksekten düşüğe)
     leaderboard.sort((a, b) => b.score - a.score);
-
-    // En fazla 10 kayıt tut
     leaderboard = leaderboard.slice(0, 10);
-
     localStorage.setItem('nihilistPenguinLeaderboard', JSON.stringify(leaderboard));
 }
 
@@ -104,6 +146,9 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+
+// Leaderboard listener'ı başlat
+initLeaderboardListener();
 
 // ===== Oyun Sabitleri =====
 const GRAVITY = 0.6;

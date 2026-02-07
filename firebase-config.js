@@ -17,7 +17,7 @@ const app = firebase.initializeApp(firebaseConfig);
 
 // Initialize App Check with reCAPTCHA v3
 const appCheck = firebase.appCheck();
-appCheck.activate('6LeqV2MsAAAAAB7Ts0KU_l7cq-Nw0qZRAGYSiAZF', true);
+appCheck.activate('6LcgY2MsAAAAAKglWC6MFpZ8s5xHhQKIbzQEuq1s', true);
 
 // Database reference
 const database = firebase.database();

@@ -19,11 +19,8 @@ The penguin leaves its colony and embarks on an endless journey into the depths 
 
 - 🎯 Endless runner mechanics
 - ❄️ Ice blocks and pit obstacles
-- 🌍 **Multilingual support** (English & Turkish)
-- 🎵 **Background music** with auto-play
-- 💬 Nihilistic quotes in EN/TR
+- 💬 Nihilistic quotes in English
 - 🏆 **Global leaderboard** (Firebase Realtime Database)
-- ⚙️ **Settings menu** with language & music options
 - 📱 Mobile and desktop responsive
 - 🎨 Canvas-based animations
 
@@ -33,12 +30,6 @@ The penguin leaves its colony and embarks on an endless journey into the depths 
 |----------|--------|
 | 💻 Desktop | `Space` or `↑` key |
 | 📱 Mobile | Tap the screen |
-
-## ⚙️ Settings
-
-Click the **⚙️** button in the bottom-right corner of the main menu:
-- **Language**: Switch between English (EN) and Turkish (TR)
-- **Music**: Select background music (auto-plays when game starts, stops when penguin dies)
 
 ## 🚀 Installation
 
@@ -64,10 +55,8 @@ nihilist-penguin/
 ├── index.html        # Main HTML file
 ├── styles.css        # Styles and animations
 ├── game.js           # Game engine and logic
-├── quotes.js         # Nihilistic quotes (EN/TR)
+├── quotes.js         # Nihilistic quotes (English)
 ├── firebase-config.js # Firebase configuration
-├── music/            # Background music files
-│   └── Sadece Sevilmek İstedim.mp3
 ├── LICENSE           # MIT License
 └── README.md         # This file
 ```

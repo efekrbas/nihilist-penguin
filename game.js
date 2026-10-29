@@ -29,151 +29,46 @@ const menuBtn = document.getElementById('menu-btn');
 const leaderboardBtn = document.getElementById('leaderboard-btn');
 const leaderboardBackBtn = document.getElementById('leaderboard-back-btn');
 
-// Settings Elements
-const settingsBtn = document.getElementById('settings-btn');
-const settingsModal = document.getElementById('settings-modal');
-const settingsClose = document.getElementById('settings-close');
-const langEnBtn = document.getElementById('lang-en');
-const langTrBtn = document.getElementById('lang-tr');
-const musicSelect = document.getElementById('music-select');
-
-// ===== Language System =====
-let currentLanguage = localStorage.getItem('nihilistPenguinLang') || 'en';
-
+// ===== English UI Text =====
 const TRANSLATIONS = {
-    en: {
-        tagline: '"Nothing has meaning... but we keep walking anyway."',
-        enterName: 'Enter your name, traveler...',
-        penguinName: 'Penguin Name',
-        enter: 'ENTER',
-        welcome: 'Welcome,',
-        start: 'START',
-        leaderboard: '🏆 LEADERBOARD',
-        mobileInstr: '📱 Mobile: Tap the screen',
-        desktopInstr: '💻 Desktop: Space or ↑',
-        settings: '⚙️ Settings',
-        language: 'Language',
-        music: 'Music',
-        noMusic: '-- No Music --',
-        play: '▶ Play',
-        stop: '⏹ Stop',
-        leaderboardTitle: '🏆 LEADERBOARD',
-        back: '← BACK',
-        distance: 'DISTANCE',
-        best: 'BEST',
-        journeyEnd: 'JOURNEY ENDED',
-        thisTime: 'This time',
-        farthest: 'Farthest',
-        tryAgain: 'TRY AGAIN',
-        mainMenu: 'MAIN MENU',
-        leaderboardEmpty: 'No scores yet... Be the first!'
-    },
-    tr: {
-        tagline: '"Hiçbir şeyin anlamı yok... ama yine de yürüyoruz."',
-        enterName: 'Adını gir, yolcu...',
-        penguinName: 'Penguen Adı',
-        enter: 'GİRİŞ',
-        welcome: 'Hoş geldin,',
-        start: 'BAŞLA',
-        leaderboard: '🏆 SKOR TABLOSU',
-        mobileInstr: '📱 Mobil: Ekrana dokun',
-        desktopInstr: '💻 Masaüstü: Space veya ↑',
-        settings: '⚙️ Ayarlar',
-        language: 'Dil',
-        music: 'Müzik',
-        noMusic: '-- Müzik Yok --',
-        play: '▶ Oynat',
-        stop: '⏹ Durdur',
-        leaderboardTitle: '🏆 SKOR TABLOSU',
-        back: '← GERİ',
-        distance: 'MESAFE',
-        best: 'EN İYİ',
-        journeyEnd: 'YOLCULUK BİTTİ',
-        thisTime: 'Bu sefer',
-        farthest: 'En uzak',
-        tryAgain: 'TEKRAR DENE',
-        mainMenu: 'ANA MENÜ',
-        leaderboardEmpty: 'Henüz skor yok... İlk sen ol!'
-    }
+    tagline: '"Nothing has meaning... but we keep walking anyway."',
+    enterName: 'Enter your name, traveler...',
+    penguinName: 'Penguin Name',
+    enter: 'ENTER',
+    welcome: 'Welcome,',
+    start: 'START',
+    leaderboard: '🏆 LEADERBOARD',
+    mobileInstr: '📱 Mobile: Tap the screen',
+    desktopInstr: '💻 Desktop: Space or ↑',
+    leaderboardTitle: '🏆 LEADERBOARD',
+    back: '← BACK',
+    distance: 'DISTANCE',
+    best: 'BEST',
+    journeyEnd: 'JOURNEY ENDED',
+    thisTime: 'This time',
+    farthest: 'Farthest',
+    tryAgain: 'TRY AGAIN',
+    mainMenu: 'MAIN MENU',
+    leaderboardEmpty: 'No scores yet... Be the first!'
 };
 
-function setLanguage(lang) {
-    currentLanguage = lang;
-    localStorage.setItem('nihilistPenguinLang', lang);
-
-    // Update quotes language
-    if (typeof setQuoteLanguage === 'function') {
-        setQuoteLanguage(lang);
-    }
-
-    // Update language buttons
-    langEnBtn.classList.toggle('active', lang === 'en');
-    langTrBtn.classList.toggle('active', lang === 'tr');
-
+function applyEnglishText() {
     // Update all translatable elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (TRANSLATIONS[lang][key]) {
-            el.textContent = TRANSLATIONS[lang][key];
+        if (TRANSLATIONS[key]) {
+            el.textContent = TRANSLATIONS[key];
         }
     });
 
     // Update placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
-        if (TRANSLATIONS[lang][key]) {
-            el.placeholder = TRANSLATIONS[lang][key];
+        if (TRANSLATIONS[key]) {
+            el.placeholder = TRANSLATIONS[key];
         }
     });
 }
-
-// ===== Music System =====
-let bgMusic = new Audio();
-bgMusic.loop = true;
-bgMusic.volume = 0.5;
-
-// Load saved music selection
-const savedMusic = localStorage.getItem('nihilistPenguinMusic') || '';
-musicSelect.value = savedMusic;
-
-// Save music selection when changed
-musicSelect.addEventListener('change', () => {
-    localStorage.setItem('nihilistPenguinMusic', musicSelect.value);
-});
-
-function playMusic() {
-    const selectedMusic = musicSelect.value;
-    if (selectedMusic) {
-        bgMusic.src = selectedMusic;
-        bgMusic.play().catch(err => console.log('Music play error:', err));
-    }
-}
-
-function stopMusic() {
-    bgMusic.pause();
-    bgMusic.currentTime = 0;
-}
-
-// ===== Settings Modal =====
-function openSettings() {
-    settingsModal.classList.add('active');
-}
-
-function closeSettings() {
-    settingsModal.classList.remove('active');
-}
-
-// Settings Event Listeners
-settingsBtn.addEventListener('click', openSettings);
-settingsClose.addEventListener('click', closeSettings);
-settingsModal.addEventListener('click', (e) => {
-    if (e.target === settingsModal) {
-        closeSettings();
-    }
-});
-
-langEnBtn.addEventListener('click', () => setLanguage('en'));
-langTrBtn.addEventListener('click', () => setLanguage('tr'));
 
 // ===== Player Info =====
 let playerName = localStorage.getItem('nihilistPenguinPlayerName') || '';
@@ -256,7 +151,7 @@ function renderLeaderboard() {
     const leaderboard = getLeaderboard();
 
     if (leaderboard.length === 0) {
-        leaderboardList.innerHTML = `<p class="leaderboard-empty">${TRANSLATIONS[currentLanguage].leaderboardEmpty}</p>`;
+        leaderboardList.innerHTML = `<p class="leaderboard-empty">${TRANSLATIONS.leaderboardEmpty}</p>`;
         return;
     }
 
@@ -447,9 +342,6 @@ function startGame() {
     highScoreDisplay.textContent = gameState.highScore + 'm';
     quoteDisplay.classList.remove('visible');
 
-    // Play selected music when game starts
-    playMusic();
-
     requestAnimationFrame(gameLoop);
 }
 
@@ -551,9 +443,6 @@ function checkCollision() {
 function gameOver() {
     gameState.isRunning = false;
     createCrashParticles();
-
-    // Stop background music when penguin dies
-    stopMusic();
 
     const finalScore = Math.floor(gameState.distance);
 
@@ -960,8 +849,8 @@ menuBtn.addEventListener('click', showMenu);
 resizeCanvas();
 highScoreDisplay.textContent = gameState.highScore + 'm';
 
-// Apply saved language on load
-setLanguage(currentLanguage);
+// Apply English text on load
+applyEnglishText();
 
 // If name was entered before, go directly to menu
 if (playerName) {

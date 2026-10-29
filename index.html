@@ -3,21 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Nihilist Penguin - An endless walking game. Inspired by Werner Herzog's famous depressed penguin.">
+        content="Nihilist Penguin is a quick-to-play Antarctic endless runner. Jump over ice and gaps, and chase your personal best.">
     <meta name="theme-color" content="#0a0a1a">
     <title>Nihilist Penguin 🐧</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div id="game-container">
-        <!-- Name Entry Screen -->
-        <div id="name-screen" class="screen active">
+        <!-- Main Menu -->
+        <div id="menu-screen" class="screen active">
             <div class="stars"></div>
             <div class="menu-content">
                 <div class="title-container">
@@ -25,33 +22,8 @@
                     <div class="penguin-preview">🐧</div>
                 </div>
                 <p class="tagline" data-i18n="tagline">"Nothing has meaning... but we keep walking anyway."</p>
-                <div class="name-input-container">
-                    <label for="player-name" class="input-label" data-i18n="enterName">Enter your name,
-                        traveler...</label>
-                    <input type="text" id="player-name" class="name-input" placeholder="Penguin Name"
-                        data-i18n-placeholder="penguinName" maxlength="15" autocomplete="off">
-                </div>
-                <button id="enter-btn" class="game-btn pulse">
-                    <span data-i18n="enter">ENTER</span>
-                </button>
-            </div>
-            <div class="snow-overlay"></div>
-        </div>
-
-        <!-- Main Menu -->
-        <div id="menu-screen" class="screen">
-            <div class="stars"></div>
-            <div class="menu-content">
-                <div class="title-container">
-                    <h1 class="game-title">NIHILIST<br>PENGUIN</h1>
-                    <div class="penguin-preview">🐧</div>
-                </div>
-                <p class="welcome-text"><span data-i18n="welcome">Welcome,</span> <span id="player-display"></span></p>
                 <button id="start-btn" class="game-btn pulse">
                     <span data-i18n="start">START</span>
-                </button>
-                <button id="leaderboard-btn" class="game-btn secondary">
-                    <span data-i18n="leaderboard">🏆 LEADERBOARD</span>
                 </button>
                 <div class="instructions">
                     <p data-i18n="mobileInstr">📱 Mobile: Tap the screen</p>
@@ -61,19 +33,6 @@
             <div class="snow-overlay"></div>
         </div>
 
-        <!-- Leaderboard -->
-        <div id="leaderboard-screen" class="screen">
-            <div class="leaderboard-content">
-                <h2 class="leaderboard-title" data-i18n="leaderboardTitle">🏆 LEADERBOARD</h2>
-                <div id="leaderboard-list" class="leaderboard-list">
-                    <!-- Scores will be here -->
-                </div>
-                <button id="leaderboard-back-btn" class="game-btn secondary">
-                    <span data-i18n="back">← BACK</span>
-                </button>
-            </div>
-        </div>
-
         <!-- Game Screen -->
         <div id="game-screen" class="screen">
             <div id="game-ui">
@@ -81,9 +40,6 @@
                     <div class="score-display">
                         <span class="label" data-i18n="distance">DISTANCE</span>
                         <span id="distance" class="value">0m</span>
-                    </div>
-                    <div class="player-display-game">
-                        <span id="player-name-game" class="player-name-text"></span>
                     </div>
                     <div class="high-score-display">
                         <span class="label" data-i18n="best">BEST</span>
@@ -119,12 +75,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-check-compat.js"></script>
-    <script src="firebase-config.js"></script>
 
     <script src="quotes.js"></script>
     <script src="game.js"></script>

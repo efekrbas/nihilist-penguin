@@ -23,7 +23,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    font-family: 'VT323', monospace;
+    font-family: 'Courier New', Courier, monospace;
     background: var(--bg-dark);
     color: var(--text-primary);
     touch-action: manipulation;
@@ -100,7 +100,8 @@ body {
 }
 
 .game-title {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
     font-size: clamp(1.5rem, 6vw, 3rem);
     background: linear-gradient(135deg, var(--ice-blue) 0%, var(--accent-purple) 50%, var(--accent-pink) 100%);
     -webkit-background-clip: text;
@@ -142,7 +143,8 @@ body {
 
 /* ===== Buttons ===== */
 .game-btn {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
     font-size: clamp(0.8rem, 2.5vw, 1rem);
     padding: 15px 40px;
     border: none;
@@ -270,7 +272,8 @@ body {
 }
 
 .value {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
     font-size: clamp(0.9rem, 3vw, 1.2rem);
     color: var(--ice-blue);
 }
@@ -306,7 +309,8 @@ body {
 }
 
 .gameover-title {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
     font-size: clamp(1.2rem, 5vw, 2rem);
     color: var(--accent-pink);
     margin-bottom: 30px;
@@ -335,7 +339,8 @@ body {
 }
 
 .stat-value {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
     font-size: clamp(1.2rem, 4vw, 1.8rem);
     color: var(--ice-blue);
 }
@@ -394,210 +399,5 @@ body {
     .game-btn {
         padding: 10px 30px;
         min-height: 40px;
-    }
-}
-
-/* ===== Name Screen ===== */
-#name-screen {
-    background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 50%, #2a2a4a 100%);
-}
-
-.name-input-container {
-    margin: 20px 0 30px;
-}
-
-.input-label {
-    display: block;
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
-    color: var(--text-secondary);
-    margin-bottom: 15px;
-    font-style: italic;
-}
-
-.name-input {
-    font-family: 'Press Start 2P', cursive;
-    font-size: clamp(0.8rem, 2.5vw, 1rem);
-    padding: 15px 25px;
-    border: 2px solid var(--accent-blue);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-primary);
-    text-align: center;
-    width: 100%;
-    max-width: 280px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.name-input:focus {
-    border-color: var(--accent-purple);
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.name-input::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.5;
-}
-
-/* ===== Welcome Text ===== */
-.welcome-text {
-    font-size: clamp(1.1rem, 3vw, 1.5rem);
-    color: var(--text-secondary);
-    margin-bottom: 25px;
-}
-
-.welcome-text span {
-    color: var(--ice-blue);
-    font-weight: bold;
-}
-
-/* ===== Player Display in Game ===== */
-.player-display-game {
-    background: rgba(139, 92, 246, 0.3);
-    backdrop-filter: blur(10px);
-    padding: 8px 15px;
-    border-radius: 20px;
-    border: 1px solid rgba(139, 92, 246, 0.5);
-}
-
-.player-name-text {
-    font-family: 'Press Start 2P', cursive;
-    font-size: clamp(0.6rem, 2vw, 0.8rem);
-    color: var(--accent-purple);
-}
-
-/* ===== Leaderboard Screen ===== */
-#leaderboard-screen {
-    background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 50%, #2a2a4a 100%);
-}
-
-.leaderboard-content {
-    z-index: 10;
-    text-align: center;
-    padding: 20px;
-    width: 100%;
-    max-width: 500px;
-}
-
-.leaderboard-title {
-    font-family: 'Press Start 2P', cursive;
-    font-size: clamp(1rem, 4vw, 1.5rem);
-    color: var(--accent-blue);
-    margin-bottom: 30px;
-    text-shadow: 0 0 20px rgba(74, 158, 255, 0.5);
-}
-
-.leaderboard-list {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    margin-bottom: 25px;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.leaderboard-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 15px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    transition: all 0.3s ease;
-}
-
-.leaderboard-item:last-child {
-    margin-bottom: 0;
-}
-
-.leaderboard-item.gold {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 180, 0, 0.1) 100%);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-}
-
-.leaderboard-item.silver {
-    background: linear-gradient(135deg, rgba(192, 192, 192, 0.2) 0%, rgba(150, 150, 150, 0.1) 100%);
-    border: 1px solid rgba(192, 192, 192, 0.3);
-}
-
-.leaderboard-item.bronze {
-    background: linear-gradient(135deg, rgba(205, 127, 50, 0.2) 0%, rgba(180, 100, 30, 0.1) 100%);
-    border: 1px solid rgba(205, 127, 50, 0.3);
-}
-
-.leaderboard-item.normal {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.leaderboard-rank {
-    font-family: 'Press Start 2P', cursive;
-    font-size: clamp(0.7rem, 2vw, 0.9rem);
-    min-width: 40px;
-}
-
-.leaderboard-rank.gold {
-    color: #ffd700;
-}
-
-.leaderboard-rank.silver {
-    color: #c0c0c0;
-}
-
-.leaderboard-rank.bronze {
-    color: #cd7f32;
-}
-
-.leaderboard-rank.normal {
-    color: var(--text-secondary);
-}
-
-.leaderboard-name {
-    flex: 1;
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    color: var(--text-primary);
-    text-align: left;
-    padding: 0 15px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.leaderboard-score {
-    font-family: 'Press Start 2P', cursive;
-    font-size: clamp(0.7rem, 2vw, 0.9rem);
-    color: var(--ice-blue);
-}
-
-.leaderboard-empty {
-    color: var(--text-secondary);
-    font-style: italic;
-    padding: 30px;
-}
-
-/* Scrollbar for leaderboard */
-.leaderboard-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-.leaderboard-list::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 3px;
-}
-
-.leaderboard-list::-webkit-scrollbar-thumb {
-    background: var(--accent-blue);
-    border-radius: 3px;
-}
-
-@media (max-width: 480px) {
-    .leaderboard-content {
-        padding: 15px;
-    }
-
-    .leaderboard-list {
-        max-height: 300px;
     }
 }

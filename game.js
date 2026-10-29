@@ -1,55 +1,38 @@
 // ===== Nihilist Penguin - Main Game Engine =====
 
 // DOM Elements
-const nameScreen = document.getElementById('name-screen');
 const menuScreen = document.getElementById('menu-screen');
 const gameScreen = document.getElementById('game-screen');
 const gameoverScreen = document.getElementById('gameover-screen');
-const leaderboardScreen = document.getElementById('leaderboard-screen');
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 
 // UI Elements
-const playerNameInput = document.getElementById('player-name');
-const playerDisplay = document.getElementById('player-display');
-const playerNameGame = document.getElementById('player-name-game');
 const distanceDisplay = document.getElementById('distance');
 const highScoreDisplay = document.getElementById('high-score');
 const quoteDisplay = document.getElementById('quote-display');
 const finalDistance = document.getElementById('final-distance');
 const finalHighScore = document.getElementById('final-high-score');
 const finalQuote = document.getElementById('final-quote');
-const leaderboardList = document.getElementById('leaderboard-list');
 
 // Buttons
-const enterBtn = document.getElementById('enter-btn');
 const startBtn = document.getElementById('start-btn');
 const restartBtn = document.getElementById('restart-btn');
 const menuBtn = document.getElementById('menu-btn');
-const leaderboardBtn = document.getElementById('leaderboard-btn');
-const leaderboardBackBtn = document.getElementById('leaderboard-back-btn');
 
 // ===== English UI Text =====
 const TRANSLATIONS = {
     tagline: '"Nothing has meaning... but we keep walking anyway."',
-    enterName: 'Enter your name, traveler...',
-    penguinName: 'Penguin Name',
-    enter: 'ENTER',
-    welcome: 'Welcome,',
     start: 'START',
-    leaderboard: '🏆 LEADERBOARD',
     mobileInstr: '📱 Mobile: Tap the screen',
     desktopInstr: '💻 Desktop: Space or ↑',
-    leaderboardTitle: '🏆 LEADERBOARD',
-    back: '← BACK',
     distance: 'DISTANCE',
     best: 'BEST',
     journeyEnd: 'JOURNEY ENDED',
     thisTime: 'This time',
     farthest: 'Farthest',
     tryAgain: 'TRY AGAIN',
-    mainMenu: 'MAIN MENU',
-    leaderboardEmpty: 'No scores yet... Be the first!'
+    mainMenu: 'MAIN MENU'
 };
 
 function applyEnglishText() {
@@ -69,128 +52,6 @@ function applyEnglishText() {
         }
     });
 }
-
-// ===== Player Info =====
-let playerName = localStorage.getItem('nihilistPenguinPlayerName') || '';
-
-
-// ===== Skor Tablosu (Firebase) =====
-let leaderboardData = [];
-
-// Firebase'den leaderboard'u dinle (realtime)
-function initLeaderboardListener() {
-    leaderboardRef.orderByChild('score').limitToLast(10).on('value', (snapshot) => {
-        leaderboardData = [];
-        snapshot.forEach((child) => {
-            leaderboardData.push({
-                key: child.key,
-                ...child.val()
-            });
-        });
-        // Skora göre sırala (yüksekten düşüğe)
-        leaderboardData.sort((a, b) => b.score - a.score);
-
-        // Eğer leaderboard ekranı açıksa güncelle
-        if (leaderboardScreen.classList.contains('active')) {
-            renderLeaderboard();
-        }
-    });
-}
-
-function getLeaderboard() {
-    return leaderboardData;
-}
-
-async function saveToLeaderboard(name, score) {
-    try {
-        // Aynı oyuncuyu bul
-        const snapshot = await leaderboardRef.orderByChild('name').equalTo(name).once('value');
-
-        if (snapshot.exists()) {
-            // Mevcut oyuncunun skorunu güncelle (sadece daha yüksekse)
-            snapshot.forEach((child) => {
-                const existingScore = child.val().score;
-                if (score > existingScore) {
-                    leaderboardRef.child(child.key).update({ score: score });
-                }
-            });
-        } else {
-            // Yeni oyuncu ekle
-            leaderboardRef.push({
-                name: name,
-                score: score,
-                timestamp: Date.now()
-            });
-        }
-    } catch (error) {
-        console.error('Firebase kaydetme hatası:', error);
-        // Fallback: localStorage'a kaydet
-        saveToLocalStorage(name, score);
-    }
-}
-
-// Fallback fonksiyonu (Firebase çalışmazsa)
-function saveToLocalStorage(name, score) {
-    let leaderboard = JSON.parse(localStorage.getItem('nihilistPenguinLeaderboard') || '[]');
-    const existingPlayer = leaderboard.find(entry => entry.name === name);
-
-    if (existingPlayer) {
-        if (score > existingPlayer.score) {
-            existingPlayer.score = score;
-        }
-    } else {
-        leaderboard.push({ name, score });
-    }
-
-    leaderboard.sort((a, b) => b.score - a.score);
-    leaderboard = leaderboard.slice(0, 10);
-    localStorage.setItem('nihilistPenguinLeaderboard', JSON.stringify(leaderboard));
-}
-
-function renderLeaderboard() {
-    const leaderboard = getLeaderboard();
-
-    if (leaderboard.length === 0) {
-        leaderboardList.innerHTML = `<p class="leaderboard-empty">${TRANSLATIONS.leaderboardEmpty}</p>`;
-        return;
-    }
-
-    let html = '';
-    leaderboard.forEach((entry, index) => {
-        let rankClass = 'normal';
-        let rankText = `${index + 1}.`;
-
-        if (index === 0) {
-            rankClass = 'gold';
-            rankText = '🥇';
-        } else if (index === 1) {
-            rankClass = 'silver';
-            rankText = '🥈';
-        } else if (index === 2) {
-            rankClass = 'bronze';
-            rankText = '🥉';
-        }
-
-        html += `
-            <div class="leaderboard-item ${rankClass}">
-                <span class="leaderboard-rank ${rankClass}">${rankText}</span>
-                <span class="leaderboard-name">${escapeHtml(entry.name)}</span>
-                <span class="leaderboard-score">${entry.score}m</span>
-            </div>
-        `;
-    });
-
-    leaderboardList.innerHTML = html;
-}
-
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-// Leaderboard listener'ı başlat
-initLeaderboardListener();
 
 // ===== Oyun Sabitleri =====
 const GRAVITY = 0.6;
@@ -283,39 +144,13 @@ function initBackground() {
     }
 }
 
-// ===== İsim Girişi =====
-function enterGame() {
-    const name = playerNameInput.value.trim();
-
-    if (name.length < 1) {
-        playerNameInput.style.borderColor = '#ec4899';
-        playerNameInput.placeholder = 'Bir isim gir!';
-        return;
-    }
-
-    playerName = name;
-    localStorage.setItem('nihilistPenguinPlayerName', playerName);
-
-    // Menüye geç
-    showMenu();
-}
-
 function showMenu() {
     // Tüm ekranları gizle
-    nameScreen.classList.remove('active');
     gameScreen.classList.remove('active');
     gameoverScreen.classList.remove('active');
-    leaderboardScreen.classList.remove('active');
 
     // Menüyü göster
-    playerDisplay.textContent = playerName;
     menuScreen.classList.add('active');
-}
-
-function showLeaderboard() {
-    menuScreen.classList.remove('active');
-    renderLeaderboard();
-    leaderboardScreen.classList.add('active');
 }
 
 // ===== Oyun Başlatma =====
@@ -335,9 +170,6 @@ function startGame() {
     menuScreen.classList.remove('active');
     gameoverScreen.classList.remove('active');
     gameScreen.classList.add('active');
-
-    // Oyuncu adını göster
-    playerNameGame.textContent = playerName;
 
     highScoreDisplay.textContent = gameState.highScore + 'm';
     quoteDisplay.classList.remove('visible');
@@ -445,9 +277,6 @@ function gameOver() {
     createCrashParticles();
 
     const finalScore = Math.floor(gameState.distance);
-
-    // Skor tablosuna kaydet
-    saveToLeaderboard(playerName, finalScore);
 
     // Yüksek skor güncelle
     if (finalScore > gameState.highScore) {
@@ -816,9 +645,8 @@ document.addEventListener('keydown', (e) => {
         }
     }
 
-    // Enter tuşu ile giriş
-    if (e.code === 'Enter' && nameScreen.classList.contains('active')) {
-        enterGame();
+    if (e.code === 'Enter' && menuScreen.classList.contains('active')) {
+        startGame();
     }
 });
 
@@ -838,11 +666,8 @@ canvas.addEventListener('click', () => {
 });
 
 // Button events
-enterBtn.addEventListener('click', enterGame);
 startBtn.addEventListener('click', startGame);
 restartBtn.addEventListener('click', startGame);
-leaderboardBtn.addEventListener('click', showLeaderboard);
-leaderboardBackBtn.addEventListener('click', showMenu);
 menuBtn.addEventListener('click', showMenu);
 
 // ===== Initialization =====
@@ -851,9 +676,3 @@ highScoreDisplay.textContent = gameState.highScore + 'm';
 
 // Apply English text on load
 applyEnglishText();
-
-// If name was entered before, go directly to menu
-if (playerName) {
-    playerNameInput.value = playerName;
-    showMenu();
-}

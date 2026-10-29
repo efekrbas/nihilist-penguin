@@ -1,6 +1,6 @@
 # 🐧 Nihilist Penguin
 
-An endless runner web game inspired by the viral "Depressed Penguin" from Werner Herzog's documentary "Encounters at the End of the World".
+A quick-to-play endless runner set in Antarctica. Guide a lone penguin over ice blocks and gaps, and chase a personal best.
 
 [![Play Now](https://img.shields.io/badge/🎮_Play-GitHub_Pages-blueviolet?style=for-the-badge)](https://efekrbas.github.io/nihilist-penguin/)
 [![Platform](https://img.shields.io/badge/Platform-Web-blue)](https://efekrbas.github.io/nihilist-penguin/)
@@ -20,7 +20,7 @@ The penguin leaves its colony and embarks on an endless journey into the depths 
 - 🎯 Endless runner mechanics
 - ❄️ Ice blocks and pit obstacles
 - 💬 Nihilistic quotes in English
-- 🏆 **Global leaderboard** (Firebase Realtime Database)
+- 🏅 Personal best saved on the player's device
 - 📱 Mobile and desktop responsive
 - 🎨 Canvas-based animations
 
@@ -56,7 +56,6 @@ nihilist-penguin/
 ├── styles.css        # Styles and animations
 ├── game.js           # Game engine and logic
 ├── quotes.js         # Nihilistic quotes (English)
-├── firebase-config.js # Firebase configuration
 ├── LICENSE           # MIT License
 └── README.md         # This file
 ```
@@ -66,16 +65,11 @@ nihilist-penguin/
 - **HTML5 Canvas** - Game rendering
 - **Vanilla JavaScript** - Game logic
 - **CSS3** - Animations and responsive design
-- **Firebase** - Realtime leaderboard
 - **localStorage** - Data storage
 
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
-
-## ⚠️ Disclaimer
-
-> This project is for educational and entertainment purposes. The "Nihilist Penguin" concept is inspired by Werner Herzog's documentary. For commercial use, creating original content is recommended.
 
 ## 🤝 Contributing
 
